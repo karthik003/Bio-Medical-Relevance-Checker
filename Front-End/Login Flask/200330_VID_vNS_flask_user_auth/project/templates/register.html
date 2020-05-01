@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}<br>
+<div class="jumbotron container" style="width: 500px;height:560px">
+    <br><br>
+<form action="" method="POST">
+    {{form.hidden_tag()}}
+    {{form.email.label}}{{form.email(class="form-control")}} <br>
+    {{form.username.label}}{{form.username(class_="form-control")}} <br>
+    {{form.password.label}}{{form.password(class_="form-control")}} <br>
+    {{form.conf_password.label}}{{form.conf_password(class_="form-control")}} <br>
+    {{form.submit(class="btn btn-success")}}
+</form>
+</div>
+
+{% endblock %}
