@@ -3,6 +3,11 @@ from wtforms import StringField,PasswordField,SubmitField
 from wtforms.validators import DataRequired,Email,EqualTo
 from wtforms import ValidationError
 
+class SearchForm(FlaskForm):
+    userid=StringField('User-ID')
+    search=StringField('Query',validators=[DataRequired()])
+    submit=SubmitField('Search')
+    
 
 class LoginForm(FlaskForm):
     email=StringField('Email',validators=[DataRequired(),Email()])
@@ -22,4 +27,4 @@ class RegistrationForm(FlaskForm):
 
     def check_username(self,field):
         if User.query.filter_by(username=field.data).first():
-            raise ValidationError('USername has been taken!')
+            raise ValidationError('Username has been taken!')

@@ -1,10 +1,11 @@
 from project import app,db
 from flask import render_template,redirect,request,url_for,flash,abort
 from flask_login import login_user,login_required,logout_user
-from project.models import User
-from project.forms import LoginForm, RegistrationForm
+from project.models import User,UserSearch
+from project.forms import LoginForm, RegistrationForm,SearchForm
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from main import *
+import os
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -32,12 +33,7 @@ def login():
         if user.check_password(form.password.data) and user is not None:
             login_user(user)
             flash('Logged in Successfully!')
-
-            next=request.args.get('next')
-
-            if next==None or not  next[0]=='/':
-                next =""
-            return render_template('searchbar.html')
+            return redirect(url_for('search'))
         
     return render_template('login.html',form=form)
 
@@ -55,6 +51,20 @@ def register():
 
     return render_template('register.html',form=form)
 
+@app.route('/search',methods=['GET','POST'])    
+def search():
+    form=SearchForm()
+    if form.validate_on_submit():
+        user=UserSearch(search=form.search.data,userid=form.userid.data)
+        search=form.search.data
+        userid=form.userid.data
+        db.session.add(user)
+        db.session.commit()
+        relevance(search)
+        return '''<h1>The User id is {}<h1>
+                  <h1>The Query searched is {}<h1>'''.format(userid,search)
+
+    return render_template('searchbar.html',form=form)    
 
 if __name__=='__main__':
     app.run(debug=True)

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+	<div style="margin-left: 30px; ">
+		<br><br>
+		<p style="font-size: 45px;text-align: center;font-family: cursive;"><b>Bio-Medical Search</b></p>
+	</div><br>
+
+			<div class="jumbotron" style="width: 600px;margin-left: 400px;">
+				<form action="" method="POST">
+					{{form.hidden_tag()}}
+					{{form.userid.label}}&nbsp; &nbsp;{{form.userid(style="width:350px;",placeholder="Enter User-ID" )}}<br><br>
+					{{form.search.label}}&nbsp; &nbsp; &nbsp; {{form.search(placeholder="Enter Search Query",style="width:350px;")}} <br>
+					<br>{{form.submit(class="btn btn-info" )}}
+
+				</form>
+			</div>
+			
+
+	</div>
+	
+{% endblock %}

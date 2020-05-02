@@ -14,11 +14,24 @@ class User(db.Model,UserMixin):
     email=db.Column(db.String(64),unique=True,index=True)
     username=db.Column(db.String(64),unique=True,index=True)
     password_hash=db.Column(db.String(128))
+    searchquery=db.relationship('UserSearch',backref='User',lazy='dynamic')
 
     def __init__(self,email,username,password):
         self.email=email
         self.username=username
         self.password_hash=generate_password_hash(password)
-
+        
     def check_password(self,password):
         return check_password_hash(self.password_hash,password)
+
+    def __repr__(self):
+        return self.searchquery
+    
+class UserSearch(db.Model,UserMixin):
+    id=db.Column(db.Integer,primary_key=True)
+    search=db.Column(db.String(128))
+    userid=db.Column(db.Integer,db.ForeignKey('users.id'))
+
+    def __init__(self,search,userid):
+        self.search=search  
+        self.userid=userid
