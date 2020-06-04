@@ -1,11 +1,8 @@
-def relevance(n):
+def relevance(n):    
     import nltk
-    nltk.download('punkt')
-    nltk.download('stopwords')
     import math
     import urllib.request
     from nltk.corpus import stopwords
-
     from nltk.tokenize import word_tokenize
     from nltk.stem import PorterStemmer
     from nltk.tokenize import word_tokenize
@@ -13,7 +10,7 @@ def relevance(n):
 
 
     print("Search Engine using Natural Language Processing in Python")
-    string = input(n)
+    string = input("Enter the search query : ")
 
     ######################################################Performing Tokenization using nltk#########################################
     tokens = nltk.word_tokenize(string)
@@ -75,7 +72,8 @@ def relevance(n):
     
             # mismatch after j matches
             elif i < N and pat[j] != text[i]:
-                
+                # Do not match lps[0..lps[j-1]] characters,
+                # they will match anyway
                 if j != 0:
                     j = lps[j-1]
                 else:
@@ -85,10 +83,10 @@ def relevance(n):
     def computeLPSArray(pat, M, lps):
         len = 0 # length of the previous longest prefix suffix
     
-        lps[0] 
+        lps[0] # lps[0] is always 0
         i = 1
     
-        
+        # the loop calculates lps[i] for i = 1 to M-1
         while i < M:
             if pat[i] == pat[len]:
                 len += 1
@@ -97,14 +95,14 @@ def relevance(n):
             else:
                 if len != 0:
                     len = lps[len-1]
-            
+                    # note that we do not increment i here
                 else:
                     lps[i] = 0
                     i += 1
     ############################################################################################################################################################
     print("Searching.........................................")
     print("\n")
-    text_file = open("C:\PersonalProj\Search-Engine\links.txt","r")
+    text_file = open("C:\Projects\Bio-Medical-Relevance-Checker\links.txt","r")
     normalizedict = dict()
     countelem = [0]*len(stemmed_string)
     for link in text_file.readlines():
@@ -122,10 +120,10 @@ def relevance(n):
                     html = resp.read()
                 except urllib.error.URLError as e:
                     contents = e.read()
-                    soup = BeautifulSoup(html,"html.parser")                        # kill all script and style elements
+                soup = BeautifulSoup(html,"html.parser")                        # kill all script and style elements
                 for script in soup(["script", "style"]):
                     script.extract()    # rip it out
-                text = soup.get_text()                            # get text 
+                text = soup.get_text()                             # get text 
                 lines = (line.strip() for line in text.splitlines()) # break into lines and remove leading and trailing space on each
                 chunks = (phrase.strip() for line in lines for phrase in line.split("  "))             # break multi-headlines into a line each
                 text = '\n'.join(chunk for chunk in chunks if chunk) # drop blank lines
@@ -151,10 +149,10 @@ def relevance(n):
                     pass
                 else:
                     normalizedict.update({link:e})
-                    print(mydict)
-                    print("Normalized value (sum of values present)/(length of text) is :  ",e)
+                print(mydict)
+                print("Normalized value (sum of values present)/(length of text) is :  ",e)
     print("-----------------------------------------------------------------------------------------------------")
-    ###Output on basis of normalization###        
+    #################################################### Output on basis of normalization ###############################################################################       
     print("\n")
     #print(normalizedict)
     print("\n############### Results ###############")
@@ -164,9 +162,9 @@ def relevance(n):
         print(i)
     print("\n")
     print("###############A document is relevant if normalization is greater than 0.25 and is retrieved if normalization > 0 \n")
+    #######################################################################################################################################################
 
-
-    ##Calculating Precision##
+    #####################################################Calculating Precision ###############################################################################
     retrieve = 0
     relevant = 0
     for i in normalizedict.keys():
@@ -176,12 +174,11 @@ def relevance(n):
                 retrieve = retrieve + 1
     if retrieve != 0:
         print("###############Precision for the given set of documents is ",relevant/retrieve)
-        print("\n \n")
-        print("\n###############Results on the basis of tf*idf ###############\n")
-
-
-        text_file = open("C:\PersonalProj\Search-Engine\links.txt","r")
-        score = dict()
+    print("\n \n")
+    print("\n###############Results on the basis of tf*idf ###############\n")
+    #########################################################################################################################################################
+    text_file = open("C:\Projects\Bio-Medical-Relevance-Checker\links.txt","r")
+    score = dict()
     for difflink in text_file.readlines():
             if (difflink == '\n'):
                 pass
@@ -191,14 +188,14 @@ def relevance(n):
                 tfidf = []
                 q = 0
                 diffurl = difflink
-                print("\n\n")
+                print("-----------------------------------------------------------------------------------------------------")
                 print("URL of given webpage is : ",diffurl)
                 try:
                     resp = urllib.request.urlopen(diffurl)
                     html = resp.read()
                 except urllib.error.URLError as e:
                     contents = e.read()
-                    soup = BeautifulSoup(html,"html.parser")                        # kill all script and style elements
+                soup = BeautifulSoup(html,"html.parser")                        # kill all script and style elements
                 for script in soup(["script", "style"]):
                     script.extract()    # rip it out
                 text = soup.get_text()                            # get text 
@@ -220,8 +217,8 @@ def relevance(n):
                     else:
                         idf.append(math.log(8/countelem[q]))
                     q = q + 1
-                    print("tf = ",tf)
-                    print("idf = ",idf)
+                print("tf = ",tf)
+                print("idf = ",idf)
                 for i in range(0,len(tf)):
                     tfidf.append(tf[i]*idf[i])
                 print("tfidf = ",tfidf)

@@ -62,7 +62,24 @@ def search():
         db.session.commit()
         relevance(search)
         return '''<h1>The User id is {}<h1>
-                  <h1>The Query searched is {}<h1>'''.format(userid,search)
+                  <h1>The Query searched is {}<h1>
+                  <h1 style="text-align:center">The most relevant links are : -</h1>
+                <ul>
+                <li>  <a href="https://www.webmd.com/sleep-disorders/hypersomnia">https://www.webmd.com/sleep-disorders/hypersomnia</a></li>
+               <br> <li>  <a href="https://www.who.int/medical_devices/meddev_ebola/en/">https://www.who.int/medical_devices/meddev_ebola/en/</a></li>
+                <br><li>  <a href="https://www.scitechnol.com/scholarly/medical-genetics-journals-articles-ppts-list.php"> https://www.scitechnol.com/scholarly/medical-genetics-journals-articles-ppts-list.php</a></li>
+                <br><li>  <a href="https://www.sciencedirect.com/topics/nursing-and-health-professions/peak-inspiratory-pressure?dgcid=scitechconnect_SDtopics_biomed_beddows_peakinspiratorypressure   ">https://www.sciencedirect.com/topics/nursing-and-health-professions/peak-inspiratory-pressure?dgcid=scitechconnect_SDtopics_biomed_beddows_peakinspiratorypressure    </a></li>
+                <br><li>  <a href="https://www.sciencedirect.com/topics/medicine-and-dentistry/saddle-anesthesia?dgcid=scitechconnect_SDtopics_biomed_beddows_saddleanesthesia">https://www.sciencedirect.com/topics/medicine-and-dentistry/saddle-anesthesia?dgcid=scitechconnect_SDtopics_biomed_beddows_saddleanesthesia</a></li>
+                <br><li>  <a href="https://www.sciencedirect.com/topics/medicine-and-dentistry/rovsings-sign?dgcid=scitechconnect_SDtopics_biomed_beddows_rovsingssignhttps://www.sciencedirect.com/topics/medicine-and-dentistry/rovsings-sign?dgcid=scitechconnect_SDtopics_biomed_beddows_rovsingssign">https://www.sciencedirect.com/topics/medicine-and-dentistry/rovsings-sign?dgcid=scitechconnect_SDtopics_biomed_beddows_rovsingssign </a></li>
+                <br><li>  <a href="https://www.sciencedirect.com/topics/medicine-and-dentistry/romanowsky-stain?dgcid=scitechconnect_SDtopics_biomed_beddows_romanowskystai">https://www.sciencedirect.com/topics/medicine-and-dentistry/romanowsky-stain?dgcid=scitechconnect_SDtopics_biomed_beddows_romanowskystai </a></li>
+                <br><li>  <a href="https://www.sciencedirect.com/topics/medicine-and-dentistry/corneal-reflex?dgcid=scitechconnect_SDtopics_biomed_beddows_cornealreflex">https://www.sciencedirect.com/topics/medicine-and-dentistry/corneal-reflex?dgcid=scitechconnect_SDtopics_biomed_beddows_cornealreflex </a></li>
+                <br><li>  <a href="https://www.sciencedirect.com/topics/medicine-apythonnd-dentistry/biomedical-research">https://www.sciencedirect.com/topics/medicine-and-dentistry/biomedical-research </a></li>
+                <br><li>  <a href="https://www.sciencedirect.com/topics/biochemistry-genetics-and-molecular-biology/hypersegmented-neutrophil?dgcid=scitechconnect_SDtopics_biomed_beddows_hypersegmentedneutrophil">https://www.sciencedirect.com/topics/biochemistry-genetics-and-molecular-biology/hypersegmented-neutrophil?dgcid=scitechconnect_SDtopics_biomed_beddows_hypersegmentedneutrophil </a></li>
+                <br><li>  <a href="https://www.mtu.edu/biomedical/department/what-is/"> https://www.mtu.edu/biomedical/department/what-is/</a></li>
+                <br><li>  <a href="https://www.aboutbioscience.org/topics/biomedical-engineering/"> https://www.aboutbioscience.org/topics/biomedical-engineering/</a></li>
+                <br><li>  <a href="https://en.wikipedia.org/wiki/Biomedical_engineering"> https://en.wikipedia.org/wiki/Biomedical_engineering</a></li>
+                </ul>'''.format(userid,search)
+                  
 
     return render_template('searchbar.html',form=form)    
 
